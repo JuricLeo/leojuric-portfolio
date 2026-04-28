@@ -2,17 +2,7 @@
 import siteData from "@/data/siteData.json";
 import jsonLdGenerator from "@/js/jsonLd";
 
-const {
-    title,
-    description,
-    url = Astro.url,
-    image,
-    frontmatter,
-    robots,
-    canonical,
-    keywords,
-    openGraph,
-} = Astro.props;
+const { title, description, url = Astro.url, image, frontmatter, canonical, keywords, openGraph } = Astro.props;
 
 const jsonLD = jsonLdGenerator({
     type: frontmatter ? "article" : "website",

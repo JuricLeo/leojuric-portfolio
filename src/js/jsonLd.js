@@ -24,7 +24,7 @@ export default function jsonLdGenerator({ type, article, url }) {
                         "url": "https://www.leopold-juric.com",
                         "image": {
                             "@type": "ImageObject",
-                            "url": "https://www.leopold-juric.com/logo.webp"
+                            "url": "https://www.leopold-juric.com/metadata/og.png"
                         }
                     },
                     "articleSection": "${article.category || ""}",

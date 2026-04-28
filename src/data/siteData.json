@@ -1,8 +1,8 @@
 {
     "title": "Leopold Jurić - Personal Portfolio & Blog",
-    "description": "Portfolio of Leopold Jurić, a fullstack web developer specializing in Laravel and Astro. View projects, skills, and contact details.",
+    "description": "\uD83D\uDC4B Hi! I'm Leopold Jurić, a web developer who still genuinely enjoys coding. I experiment with new tools, break things, fix them, and share what I learn. If there’s code to optimize, I’ll always try to squeeze more performance out of it.",
     "image": {
-        "src": "https://www.leopold-juric.com/logo.webp",
+        "src": "https://www.leopold-juric.com/metadata/og.png",
         "alt": "Leopold Jurić - Personal Portfolio & Blog"
     }
 }

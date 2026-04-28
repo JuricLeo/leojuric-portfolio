@@ -1,0 +1,14 @@
+{
+  "title": "Leopold Jurić - Personal Portfolio & Blog",
+  "tagline": "👋 Hi! I'm Leopold Jurić, a web developer who still genuinely enjoys coding. I experiment with new tools, break things, fix them, and share what I learn. If there’s code to optimize, I’ll always try to squeeze more performance out of it.",
+  "colors": {
+    "background": "#0f0f0f",
+    "foreground": "#ffffff",
+    "accent": "#888888"
+  },
+  "logo": "/assets/images/logo.webp",
+  "faviconSrc": "public/favicon.svg",
+  "outputDir": "public/metadata",
+  "font": "Inter",
+  "url": "https://www.leopold-juric.com/"
+}
