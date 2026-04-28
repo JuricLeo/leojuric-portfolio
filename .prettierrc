@@ -4,7 +4,7 @@
   "singleQuote": false,
   "tabWidth": 4,
   "trailingComma": "es5",
-  "printWidth": 80,
+  "printWidth": 150,
   "plugins": ["prettier-plugin-astro"],
   "tailwindStylesheet": "src/styles/global.css",
   "tailwindFunctions": ["cn", "cva"],

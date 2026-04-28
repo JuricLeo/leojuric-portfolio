@@ -1,0 +1,21 @@
+---
+import tech from "@/data/icons.json";
+import type { Tool } from "@/types/tool.ts";
+
+const { tool } = Astro.props as { tool: string };
+
+const byName = (name: string): Tool => tech.find((item) => item.name === name)!;
+
+const toolData = byName(tool);
+---
+
+<a
+    href={toolData.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`Go to ${toolData.name}`}
+    class="flex items-center px-2 py-0.5 gap-1 hover:-translate-y-0.5 hover:bg-muted/5 cursor-pointer"
+>
+    <img alt={toolData.name} src={toolData.src} class="size-4" />
+    <p>{toolData.name}</p>
+</a>

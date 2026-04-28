@@ -2,23 +2,10 @@ import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 
-import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetFooter,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Logo } from "@/components/global/logo";
 
-import {
-    ListIcon,
-    GithubLogoIcon,
-    LinkedinLogoIcon,
-    YoutubeLogoIcon,
-} from "@phosphor-icons/react";
+import { ListIcon } from "@phosphor-icons/react";
 import { Socials } from "@/components/global/socials.tsx";
 
 interface HeaderProps {
@@ -40,24 +27,6 @@ const routes = [
     },
 ];
 
-const socials = [
-    {
-        name: "GitHub",
-        url: "https://github.com/JuricLeo",
-        icon: GithubLogoIcon,
-    },
-    {
-        name: "LinkedIn",
-        url: "https://www.linkedin.com/in/leopold-jurić/",
-        icon: LinkedinLogoIcon,
-    },
-    {
-        name: "Youtube",
-        url: "https://www.youtube.com/@LeopoldJuric",
-        icon: YoutubeLogoIcon,
-    },
-];
-
 export const Header = ({ pathname }: HeaderProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -70,20 +39,16 @@ export const Header = ({ pathname }: HeaderProps) => {
     };
 
     return (
-        <header className="sticky top-0 z-30 mx-auto mb-20 flex h-12 items-center justify-between gap-6 border-b border-dotted backdrop-blur-md">
+        <header className="sticky top-0 z-30 mx-auto mb-20 flex h-12 items-center justify-between gap-6 border-y border-dotted bg-background">
             <a href="/" aria-label="Go home" className="ml-3">
-                <Logo />
+                // Leopold Jurić
             </a>
-            <nav
-                aria-label="Main navigation"
-                className="hidden h-full items-stretch sm:flex"
-            >
+            <nav aria-label="Main navigation" className="hidden h-full items-stretch sm:flex">
                 {routes.map((route) => (
                     <a
                         className={cn(
                             "flex h-full items-center border-x px-6 font-bold text-muted hover:-translate-y-0.5 hover:text-primary",
-                            pathname === route.href &&
-                                "border-primary opacity-100 text-primary"
+                            pathname === route.href && "border-primary opacity-100 text-primary"
                         )}
                         href={route.href}
                         key={route.href}
@@ -95,11 +60,7 @@ export const Header = ({ pathname }: HeaderProps) => {
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
                 <SheetTrigger onClick={toggleSheet} className="sm:hidden">
                     <span className="sr-only">Open navigation menu</span>
-                    <ListIcon
-                        size={32}
-                        color="currentColor"
-                        className="text-text cursor-pointer mr-3"
-                    />
+                    <ListIcon size={32} color="currentColor" className="text-text cursor-pointer mr-3" />
                 </SheetTrigger>
                 <SheetContent side="top" className="min-h-screen">
                     <SheetHeader>
@@ -123,9 +84,7 @@ export const Header = ({ pathname }: HeaderProps) => {
                     </div>
                     <SheetFooter className="mb-12 flex w-full flex-col items-center justify-center gap-4">
                         <Logo />
-                        <p className="block text-center text-sm text-muted-foreground">
-                            Leopold Jurić
-                        </p>
+                        <p className="block text-center text-sm text-muted-foreground">Leopold Jurić</p>
                         <div className="flex gap-2">
                             <Socials />
                         </div>

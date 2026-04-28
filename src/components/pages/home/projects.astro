@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import Button from "@/components/ui/a-button.tsx.astro";
+
+const projects = await getCollection("projects");
+const orderedNames = ["Satnica", "PentestPad", "Beriko"] as const;
+const selectedProjects = orderedNames.map((name) => projects.find((p) => p.data.name === name)).filter(Boolean);
+---
+
+<section class="px-3">
+    <h1 class="text-3xl">projects</h1>
+    <div class="flex flex-col gap-4">
+        {
+            selectedProjects.map((project) => (
+                <div class="border-b last:border-b-0 pb-12 pt-6 last:pb-0">
+                    <h2 class="text-lg">
+                        <a href={project!.data.link} class="underline" target="_blank" aria-label={`Go to ${project!.data.name}`}>
+                            {project!.data.name}
+                        </a>
+                    </h2>
+                    <div class="ml-3 lowercase text-muted">
+                        <p class="flex items-start gap-2">
+                            <span>></span>
+                            <span>{project!.data.type}</span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <span>></span>
+                            <span>{project!.data.date}</span>
+                        </p>
+                        <p class="flex items-start gap-2">
+                            <span>></span>
+                            <span>{project!.data.description}</span>
+                        </p>
+                        {project?.data.status !== "" && (
+                            <p class="flex items-start gap-2">
+                                <span>></span>
+                                <span>status: {project!.data.status}</span>
+                            </p>
+                        )}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+    <a href="/my-work" href="/my-work" aria-label="My Work">
+        <Button class="mt-12 mx-auto flex">all projects</Button>
+    </a>
+</section>

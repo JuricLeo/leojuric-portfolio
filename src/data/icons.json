@@ -1,0 +1,74 @@
+[
+    {
+        "name": "Affinity",
+        "url": "https://www.affinity.studio/",
+        "src": "/src/assets/icons/tech/affinity.svg",
+        "type": "design"
+    },
+    {
+        "name": "Astro",
+        "url": "https://astro.build/",
+        "src": "/src/assets/icons/tech/astro.svg",
+        "type": "frontend"
+    },
+    {
+        "name": "Bun",
+        "url": "https://bun.com/",
+        "src": "/src/assets/icons/tech/bun.svg",
+        "type": "backend"
+    },
+    {
+        "name": "DaVinci Resolve",
+        "url": "https://www.blackmagicdesign.com/products/davinciresolve",
+        "src": "/src/assets/icons/tech/davinciresolve.svg",
+        "type": "design"
+    },
+    {
+        "name": "Docker",
+        "url": "https://www.docker.com/",
+        "src": "/src/assets/icons/tech/docker.svg",
+        "type": "devops"
+    },
+    {
+        "name": "Figma",
+        "url": "https://www.figma.com/",
+        "src": "/src/assets/icons/tech/figma.svg",
+        "type": "design"
+    },
+    {
+        "name": "Laravel",
+        "url": "https://laravel.com/",
+        "src": "/src/assets/icons/tech/laravel.svg",
+        "type": "backend"
+    },
+    {
+        "name": "Pest",
+        "url": "https://pestphp.com/",
+        "src": "/src/assets/icons/tech/pest.svg",
+        "type": "devops"
+    },
+    {
+        "name": "PostgreSQL",
+        "url": "https://www.postgresql.org/",
+        "src": "/src/assets/icons/tech/postgresql.svg",
+        "type": "backend"
+    },
+    {
+        "name": "React",
+        "url": "https://react.dev/",
+        "src": "/src/assets/icons/tech/react.svg",
+        "type": "frontend"
+    },
+    {
+        "name": "Tailwind CSS",
+        "url": "https://tailwindcss.com/",
+        "src": "/src/assets/icons/tech/tailwindcss.svg",
+        "type": "frontend"
+    },
+    {
+        "name": "Vitest",
+        "url": "https://vitest.dev/",
+        "src": "/src/assets/icons/tech/vitest.svg",
+        "type": "devops"
+    }
+]

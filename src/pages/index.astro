@@ -1,6 +1,13 @@
 ---
 import MainLayout from "@/layouts/main-layout.astro";
-import { Button } from "@/components/ui/button";
+
+import Separator from "@/components/ui/a-separator.astro";
+
+import About from "@/components/pages/home/about.astro";
+import TechStack from "@/components/pages/home/tech-stack.astro";
+import Stats from "@/components/pages/home/stats.astro";
+import Contact from "@/components/pages/home/contact.astro";
+import Projects from "@/components/pages/home/projects.astro";
 
 const title = "Leopold Jurić - Personal Portfolio & Blog";
 const description =
@@ -13,4 +20,16 @@ const openGraph = {
 };
 ---
 
-<MainLayout title={title} description={description} openGraph={openGraph} />
+<MainLayout title={title} description={description} openGraph={openGraph}>
+    <About />
+    <Separator />
+    // blog
+    <Separator />
+    <TechStack />
+    <Separator />
+    <Stats />
+    <Separator />
+    <Projects />
+    <Separator />
+    <Contact />
+</MainLayout>

@@ -23,16 +23,7 @@ interface Props {
     openGraph?: OpenGraph;
 }
 
-const {
-    title,
-    description,
-    image,
-    frontmatter,
-    robots,
-    canonical,
-    keywords,
-    openGraph,
-} = Astro.props as Props;
+const { title, description, image, frontmatter, robots, canonical, keywords, openGraph } = Astro.props as Props;
 const pathname = Astro.url.pathname;
 ---
 
@@ -50,7 +41,7 @@ const pathname = Astro.url.pathname;
     />
     <body class="mx-auto max-w-3xl border-x border-dotted">
         <Header client:idle pathname={pathname} />
-        <main>
+        <main class="space-y-12">
             <slot />
         </main>
         <Footer />
