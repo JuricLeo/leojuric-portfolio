@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.pentestpad.com/sitemap.xml
+Sitemap: https://www.leopold-juric.com/sitemap.xml

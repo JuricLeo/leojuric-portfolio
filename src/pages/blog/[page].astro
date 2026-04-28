@@ -68,7 +68,7 @@ const articleJsonLd = {
 
 <MainLayout title={title} description={truncatedDescription} openGraph={openGraph} frontmatter={frontmatter} canonical={canonicalUrl}>
     <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} is:inline />
-    <article class="flex flex-col items-center w-full px-3">
+    <article class="flex flex-col items-center w-full px-3" data-pagefind-body data-pagefind-filter="section:articles">
         <div class="flex mr-auto gap-2 mb-2 items-center" transition:name={`${article.id}-data`}>
             <p class="text-muted mt-1">{formatDate(article.data.date)}</p>
             <p class="bg-muted/10 px-2 py-0.5">{article.data.category}</p>

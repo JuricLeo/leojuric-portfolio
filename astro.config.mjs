@@ -5,7 +5,6 @@ import tailwindcss from "@tailwindcss/vite";
 import react from "@astrojs/react";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import indexnow from "astro-indexnow";
 
 // https://astro.build/config
 export default defineConfig({
@@ -21,9 +20,9 @@ export default defineConfig({
         }),
         react(),
         mdx(),
-        indexnow(),
     ],
     trailingSlash: "never",
+    build: { format: "file" },
     fonts: [
         {
             provider: fontProviders.local(),
@@ -32,9 +31,7 @@ export default defineConfig({
             options: {
                 variants: [
                     {
-                        src: [
-                            "./src/assets/fonts/GeistMono-VariableFont_wght.woff2",
-                        ],
+                        src: ["./src/assets/fonts/GeistMono-VariableFont_wght.woff2"],
                         weight: "100 900",
                         style: "normal",
                     },
