@@ -44,7 +44,7 @@ export const getStaticPaths = (async ({ paginate }) => {
                         <a href={`/blog/${article.id}`} class="flex flex-col mx-auto items-center w-full group">
                             <div class="flex mb-2 gap-2 items-center mr-auto" transition:name={`${article.id}-data`}>
                                 <p class="text-muted mt-1">{formatDate(article.data.date)}</p>
-                                <p class="bg-muted/10 px-2 py-0.5">{article.data.category}</p>
+                                <p class="bg-muted/10 px-2 py-0.5 text-sm">{article.data.category}</p>
                             </div>
                             <h2
                                 class="text-2xl font-bold group-hover:underline group-hover:opacity-70 mr-auto"

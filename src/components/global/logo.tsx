@@ -5,7 +5,7 @@ interface LogoProps {
 export const Logo = ({ lazyload = false }: LogoProps) => {
     return (
         <img
-            src="/src/assets/images/logo.webp"
+            src="/assets/images/logo.webp"
             alt="logo"
             width={50}
             height={50}
