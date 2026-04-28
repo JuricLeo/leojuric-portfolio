@@ -1,0 +1,67 @@
+---
+import { getCollection } from "astro:content";
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { Image } from "astro:assets";
+
+import MainLayout from "@/layouts/main-layout.astro";
+import { formatDate } from "@/lib/utils";
+
+import Pagination from "@/components/global/pagination.astro";
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { page } = Astro.props as Props;
+
+const title = page.currentPage > 1 ? `Blog - Page ${page.currentPage}` : "Blog";
+const description = "Thoughts on web development, software engineering, tutorials and more";
+const canonicalUrl = `https://www.leopold-juric.com${page.url.current}`;
+
+const openGraph = {
+    title: `Blog | Leopold Jurić`,
+    description,
+    url: canonicalUrl,
+};
+
+export const getStaticPaths = (async ({ paginate }) => {
+    const articles = await getCollection("articles");
+    const sorted = articles.filter((article) => article.data.status === "ready").sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+    return paginate(sorted, { pageSize: 5 });
+}) satisfies GetStaticPaths;
+---
+
+<MainLayout title={title} description={description} openGraph={openGraph} canonical={canonicalUrl}>
+    <div class="px-3">
+        <h1 class="text-3xl">blog</h1>
+        <p class="text-muted lowercase mb-24">> {description}</p>
+        <div class="flex flex-col gap-12">
+            {
+                page.data.map((article) => {
+                    const truncatedDescription =
+                        article.data.description.length > 240 ? article.data.description.substring(0, 240) + "..." : article.data.description;
+
+                    return (
+                        <a href={`/blog/${article.id}`} class="flex flex-col mx-auto items-center w-full group">
+                            <div class="flex mb-2 gap-2 items-center mr-auto" transition:name={`${article.id}-data`}>
+                                <p class="text-muted mt-1">{formatDate(article.data.date)}</p>
+                                <p class="bg-muted/10 px-2 py-0.5">{article.data.category}</p>
+                            </div>
+                            <h2
+                                class="text-2xl font-bold group-hover:underline group-hover:opacity-70 mr-auto"
+                                transition:name={`${article.id}-title`}
+                            >
+                                {article.data.title}
+                            </h2>
+                            <p class="text-muted text-base mt-1" transition:name={`${article.id}-description`}>
+                                {truncatedDescription}
+                            </p>
+                        </a>
+                    );
+                })
+            }
+        </div>
+        <div class="w-full flex justify-center mt-12">
+            <div class="flex">
+                <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} currentPage={page.currentPage} lastPage={page.lastPage} />
+            </div>
+        </div>
+    </div>
+</MainLayout>

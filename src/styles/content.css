@@ -1,0 +1,86 @@
+@reference "./global.css";
+
+.mdx-content {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        line-height: 1.1;
+        text-wrap: pretty;
+        font-weight: 600;
+        margin-top: 2em;
+        margin-bottom: 1em;
+    }
+
+    h1 {
+        font-size: 1.75em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    h3 {
+        font-size: 1.25em;
+    }
+
+    h4,
+    h5,
+    h6 {
+        font-size: 1em;
+    }
+
+    p {
+        font-size: 16px;
+        @apply font-light;
+    }
+
+    strong {
+        @apply font-bold;
+    }
+
+    code {
+        @apply bg-[#3d3f47] text-white;
+        padding: 0.25rem 0.75rem;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    pre {
+        @apply text-white;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        padding: 1em 1.5em;
+        max-width: 100%;
+        overflow-x: auto;
+
+        code {
+            padding: 0;
+            background: none;
+        }
+    }
+
+    ul li {
+        list-style-type: disc;
+        margin: 0.35em 24px 0;
+        font-size: 16px;
+        @apply font-light;
+    }
+
+    ol li {
+        list-style-type: decimal;
+        margin: 0.35em 28px 0;
+        font-size: 16px;
+        @apply font-light;
+    }
+
+    ul li::before {
+        content: "";
+    }
+
+    a {
+        @apply text-primary hover:opacity-70 underline cursor-pointer break-all;
+    }
+}

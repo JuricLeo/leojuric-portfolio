@@ -1,0 +1,199 @@
+---
+title: Simple language changing in Next.js application
+description: This post explains how I built a simple language switcher in Next.js using Zustand and a lang.json file - no i18n libraries needed. It supports toggling between English and Croatian, persists the language with localStorage, and uses a t(key) function for translations. Lightweight and perfect for dashboards or SPAs.
+category: development
+tags: "nextjs, backend, internationalization, accessibility"
+date: "03-03-2025"
+status: ready
+---
+
+
+## How to handle language switching in a Next.js app (without any i18n library)
+For one of my personal projects (for [this](https://github.com/JuricLeo/leopold-juric) personal website as well 🙂), I needed a simple way to toggle between English and Croatian - nothing fancy, just a language switcher that remembers the selected language and updates the UI accordingly.
+<br />
+I didn’t want to pull in a full-blown i18n library like `next-i18next`. All I needed was:
+
+- A `t(key)` function for translations
+- `localStorage to persist the selection
+- A lightweight global store to manage state
+So I built it with Zustand and a simple `lang.json`. Here's the full setup.
+
+
+## The goal
+- Let users switch between English and Croatian.
+- Remember their selection using `localStorage`.
+- Provide a simple `t(key)` function for translating strings.
+- Avoid over-engineering with external i18n libraries.
+
+## The approach
+We used three small pieces:
+1. A global language store using Zustand.
+2. A `lang.json` file with our translations.
+3. A language switcher component that updates the language and reloads the page.
+
+
+## The code
+### 1. useLangStore.ts – Global Zustand Store
+
+```ts
+import { create } from "zustand";
+import translations from "@/constants/lang.json";
+
+interface LanguageState {
+  selectedLanguage: string;
+  translations: Record<string, unknown>;
+  setSelectedLanguage: (language: string) => void;
+  t: (key: string) => string;
+}
+
+const useLangStore = create<LanguageState>((set) => {
+  let selectedLanguage = "en";
+
+  if (typeof window !== "undefined") {
+    selectedLanguage = localStorage.getItem("selectedLanguage") || "en";
+  }
+
+  const getNestedValue = (obj: unknown, path: string): unknown => {
+    return path.split(".").reduce((prev, curr) => {
+      if (prev && typeof prev === "object" && curr in prev) {
+        // @ts-expect-error: Index signature
+        return prev[curr];
+      }
+      return undefined;
+    }, obj);
+  };
+
+  return {
+    selectedLanguage,
+    translations: translations,
+    setSelectedLanguage: (language) => {
+      selectedLanguage = language;
+      set({ selectedLanguage: language });
+      if (typeof window !== "undefined") {
+        localStorage.setItem("selectedLanguage", language);
+      }
+    },
+    t: (key) => {
+      const lang = selectedLanguage as keyof typeof translations;
+      const translatedValue = getNestedValue(translations[lang], key);
+      return typeof translatedValue === "string" ? translatedValue : key;
+    },
+  };
+});
+
+export default useLangStore;
+```
+
+### 2. Translations (lang.json)
+
+```json
+{
+  "en": {
+    "header": {
+      "title": "Welcome",
+      "subtitle": "Your dashboard"
+    }
+  },
+  "hr": {
+    "header": {
+      "title": "Dobro došli",
+      "subtitle": "Tvoja nadzorna ploča"
+    }
+  }
+}
+```
+
+### 3. Language Switcher Component (change-lang.tsx)
+
+```tsx
+"use client";
+
+import { useEffect, useState } from "react";
+import useLangStore from "@/store/useLangStore";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+
+const languageOptions = [
+  { label: "Hrvatski 🇭🇷", value: "hr" },
+  { label: "English 🇬🇧", value: "en" },
+];
+
+export default function ChangeLanguage() {
+  const setSelectedLanguage = useLangStore((state) => state.setSelectedLanguage);
+  const selectedLanguage = useLangStore((state) => state.selectedLanguage);
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    if (!initialized) {
+      const storedLanguage = localStorage.getItem("selectedLanguage");
+      if (storedLanguage) {
+        setSelectedLanguage(storedLanguage);
+      }
+      setInitialized(true);
+    }
+  }, [initialized, setSelectedLanguage]);
+
+  const handleLanguageChange = (value: string) => {
+    localStorage.setItem("selectedLanguage", value);
+    window.location.reload();
+    setSelectedLanguage(value);
+  };
+
+  return (
+    <div>
+      <Select value={selectedLanguage} onValueChange={handleLanguageChange}>
+        <SelectTrigger className="w-[280px] mt-2 md:hidden">
+          <SelectValue placeholder="Language" />
+        </SelectTrigger>
+        <SelectContent>
+          {languageOptions.map((option) => (
+            <SelectItem
+              className="capitalize"
+              key={option.value}
+              value={option.value}
+            >
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <div className="hidden md:block">
+        <Button
+          onClick={() =>
+            handleLanguageChange(selectedLanguage === "en" ? "hr" : "en")
+          }
+          variant="ghost"
+          size="icon"
+          className="text-3xl"
+        >
+          {selectedLanguage === "hr" ? "🇭🇷" : "🇬🇧"}
+        </Button>
+      </div>
+    </div>
+  );
+}
+```
+
+## How to use it
+Anywhere in your app, just use the `t` function:
+
+```tsx
+import useLangStore from "@/store/useLangStore";
+...
+const { t } = useLangStore();
+...
+<h1 className="text-lg">{t("header.title")}</h1>
+```
+
+## Final thoughts
+This approach gives me everything I need - simple language switching with no extra dependencies, and full control over how translations work.
+It works especially well for dashboards and SPAs where you don't need SSR or route-based language handling. If I need SEO and server-side translations down the line, I might revisit `next-i18next`. But for now - this does the job perfectly.
+Try it out on the home page of my site right now 🙂.
+<br />
+You can always view the code here: [Github](https://github.com/JuricLeo/leopold-juric).

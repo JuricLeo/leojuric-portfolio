@@ -22,20 +22,8 @@ interface Props {
     openGraph?: OpenGraph;
 }
 
-const {
-    title,
-    description,
-    image,
-    frontmatter,
-    robots,
-    canonical,
-    keywords,
-    openGraph,
-} = Astro.props as Props;
-const pageTitle =
-    title === "Leopold Jurić - Personal Portfolio & Blog"
-        ? title
-        : `${title} | Leopold Jurić`;
+const { title, description, image, frontmatter, robots, canonical, keywords, openGraph } = Astro.props as Props;
+const pageTitle = title === "Leopold Jurić - Personal Portfolio & Blog" ? title : `${title} | Leopold Jurić`;
 
 const defaultKeywords = "";
 const pageKeywords = keywords || defaultKeywords;
@@ -76,7 +64,7 @@ const pageKeywords = keywords || defaultKeywords;
             url: "https://www.leopold-juric.com",
             description: "Personal Portfolio & Blog",
             publisher: {
-                "@type": "Organization",
+                "@type": "Person",
                 name: "Leopold Jurić",
                 url: "https://www.leopold-juric.com",
             },
@@ -89,11 +77,7 @@ const pageKeywords = keywords || defaultKeywords;
             "@context": "https://schema.org",
             "@type": "SiteNavigationElement",
             name: ["Home", "My Work", "Blog"],
-            url: [
-                "https://www.leopold-juric.com",
-                "https://www.leopold-juric.com/my-work",
-                "https://www.leopold-juric.com/blog",
-            ],
+            url: ["https://www.leopold-juric.com", "https://www.leopold-juric.com/my-work", "https://www.leopold-juric.com/blog"],
         })}
         is:inline
     />

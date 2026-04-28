@@ -1,0 +1,109 @@
+---
+title: Enabling TipTap image drag and drop functionality without the PRO subscription
+description: Learn how to enable drag-and-drop image functionality in TipTap, a feature often associated with pro subscriptions. This guide provides the steps to integrate this essential UX improvement into your TipTap editor.
+category: development
+tags: "react, tiptap, customization"
+date: "2025-04-17"
+status: ready
+---
+
+## How I enabled the drag & drop images in Tiptap without a PRO subscription
+Recently while working on [PentestPad](https://www.pentestpad.com/), we integrated the Tiptap editor for our blog and note-taking features. It's a fantastic editor built on top of ProseMirror, and it fits perfectly into our stack. But as we started polishing the UX, we wanted to allow users to **drag and drop images directly into the editor**. Simple idea, right?
+
+<br />
+
+PentestPad even published a small package - `@pentestpad/tiptap-extension-figure` - to support semantic **&lt;figure&gt;** and **&lt;figcaption&gt;** tags in Tiptap. We needed more control over image formatting and structure, and that extension solved it. You can check it out here: [Tiptap Figures Extension](https://www.npmjs.com/package/@pentestpad/tiptap-extension-figure)
+
+<br />
+
+Turns out - that’s a **PRO-only feature** in Tiptap. 😅
+
+<br />
+
+Before shelling out for a PRO subscription (which we still might do - it's well-deserved), I figured I’d try to build this drag-and-drop functionality myself. Spoiler: it's possible with a little bit of elbow grease.
+Also, it's important to note that in this example I'll be using React but the same can be achieved with plain JavaScript or TypeScript with a few tweaks.
+
+## What I wanted
+When a user drags and drops an image onto the editor, it should:
+1. show an indicator where the image will be dropped
+2. to actually place it onto the editor
+3. and thats about it!
+
+## What Tiptap offers (for free)
+Tiptap doesn’t offer drag & drop image upload out of the box unless you’re using Tiptap Pro, but it doesn’t block you from doing it either. The trick is to handle the native browser events manually - `dragover`, `drop`, and `paste`.
+
+## The approach
+1. Reference the editor container using a `ref`.
+2. Listen for drag and paste events using plain DOM listeners inside a `useEffect`.
+3. Filter the files, upload the images, and inject them into the Tiptap editor via the `editor.commands.insertContent` method.
+
+```tsx
+useEffect(() => {
+    const editorContainer = editorContainerRef.current;
+    if (!editorContainer) return;
+
+    const handleDragOver = (e: DragEvent) => {
+        e.preventDefault();
+    };
+
+    const handleDrop = (e: DragEvent) => {
+        e.preventDefault();
+
+        if (!e.dataTransfer?.files.length) return;
+
+        const files = Array.from(e.dataTransfer.files);
+        files.forEach((file) => {
+            if (file.type.startsWith("image/")) {
+                handleImageUpload(file);
+            }
+        });
+    };
+
+    const handlePaste = (e: ClipboardEvent) => {
+        if (!e.clipboardData?.files.length) return;
+
+        const files = Array.from(e.clipboardData.files);
+        files.forEach((file) => {
+            if (file.type.startsWith("image/")) {
+                e.preventDefault();
+                handleImageUpload(file);
+            }
+        });
+    };
+
+    editorContainer.addEventListener("dragover", handleDragOver);
+    editorContainer.addEventListener("drop", handleDrop);
+    editorContainer.addEventListener("paste", handlePaste);
+
+    return () => {
+        editorContainer.removeEventListener("dragover", handleDragOver);
+        editorContainer.removeEventListener("drop", handleDrop);
+        editorContainer.removeEventListener("paste", handlePaste);
+    };
+}, [editor]);
+```
+
+## Explanation:
+We're simply attaching native event listeners directly to the editor container. When the user drops or pastes an image file, we intercept the event, upload the file, and then use the Tiptap `editor.commands.insertContent` API to add an image to the document.
+<br />
+This avoids any need for PRO plugins or custom Tiptap extensions. Your `handleImageUpload` function should handle the upload to your server and then insert the image using something like:
+
+```tsx
+const handleImageUpload = (file: File) => {
+    if (!file.type.startsWith("image/")) return;
+    const formData = new FormData();
+    formData.append("upload", file);
+    // api call
+    }).then((response) => {
+        if (response.error) {
+            console.error("Error uploading image:", response.error);
+            return;
+        }
+        editor?.chain().focus().setImage({ src: response.data.url }).run();
+    });
+};
+```
+
+## Final thoughts
+This setup worked great for us, and it keeps the editor clean and minimal. It also gives us full control over the upload logic and styling.
+If Tiptap PRO fits your budget, and you want their complete drag & drop solution (with file managers, galleries, etc.), it’s worth considering. But for simple drag & drop image support - this custom approach does the job just fine.

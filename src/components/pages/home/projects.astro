@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Button from "@/components/ui/a-button.tsx.astro";
+import AButton from "@/components/ui/a-button.astro";
 
 const projects = await getCollection("projects");
 const orderedNames = ["Satnica", "PentestPad", "Beriko"] as const;
@@ -42,7 +42,7 @@ const selectedProjects = orderedNames.map((name) => projects.find((p) => p.data.
             ))
         }
     </div>
-    <a href="/my-work" aria-label="My Work">
-        <Button class="mt-12 mx-auto flex">all projects</Button>
+    <a href="/my-work" aria-label="My Work" class="mx-auto flex mt-12">
+        <AButton class="flex mx-auto">all projects</AButton>
     </a>
 </section>

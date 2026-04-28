@@ -1,0 +1,184 @@
+---
+title: Theme Switcher in Next.js with TailwindCSS and Shadcn/ui
+description: This post walks through implementing a dynamic color theme switcher in a Next.js app using Tailwind CSS. It allows users to toggle between custom color themes like Caffeine, VintagePaper and Notebook, and it respects light/dark modes. The setup includes custom CSS variables, a theme context provider, and JSON-based color configurations for full control over design tokens.
+category: development
+tags: "nextjs, backend, frontend, themes"
+date: "2025-05-21"
+status: ready
+---
+
+## How I built a theme switcher in Next.js with TailwindCSS
+I’ve always liked the idea of letting users personalize how things look. So I recently added theme switching to my personal project using TailwindCSS and Next.js. Here's how I made it work.
+
+## The goal
+Let users choose between different themes like “Caffeine” or “NeoBrutalism,” and apply their colors globally - supporting both light and dark modes.
+
+## The approach
+Rather than sticking to Tailwind’s default `darkMode: 'class'`, I needed full flexibility. I used:
+- CSS variables for color tokens
+- Themes object that maps each theme’s light and dark palettes
+- React state to toggle themes
+
+
+## Defining Themes
+I created a `themes` object where each theme has light and dark color tokens (using OKLCH for consistency and accessibility):
+
+
+```ts
+// theme-colors.ts
+export const themes = {
+  Caffeine: {
+    light: {
+      background: "oklch(0.98 0 0)",
+      foreground: "oklch(0.24 0 0)",
+      // ...
+    },
+    dark: {
+      background: "oklch(0.18 0 0)",
+      foreground: "oklch(0.95 0 0)",
+      // ...
+    },
+  },
+  // more themes...
+};
+```
+
+I also defined a type for the theme names:
+
+```ts
+// theme-types.ts
+export type ThemeColors =
+  | "Perpetuity"
+  | "VintagePaper"
+  | "Notebook"
+  | "NeoBrutalism"
+  | "KodamaGrove"
+  | "Doom64"
+  | "Cyberpunk"
+  | "Caffeine";
+```
+
+## Setting Up React State
+I used context + state to store and update the selected theme:
+
+```ts
+const [themeColor, setThemeColor] = useState<ThemeColors>("Caffeine");
+```
+
+## Applying Theme Styles
+When the theme changes, I inject its CSS variables into `:root` using `document.documentElement.style.setProperty(...)`. Here's a simple utility:
+
+```ts
+function applyTheme(theme: Record<string, string>) {
+  Object.entries(theme).forEach(([key, value]) => {
+    document.documentElement.style.setProperty(`--${key}`, value);
+  });
+}
+```
+
+This runs whenever `themeColor` or `dark mode` changes.
+
+## theme/theme-colors.json
+This file contains the raw color tokens for each theme and mode (light/dark):
+
+```ts
+{
+  "slate": {
+    "light": {
+      "color-text": "#0f172a",
+      "color-bg": "#f1f5f9",
+      "color-muted": "#64748b"
+    },
+    "dark": {
+      "color-text": "#f1f5f9",
+      "color-bg": "#0f172a",
+      "color-muted": "#94a3b8"
+    }
+  },
+  "amber": {
+    "light": {
+      "color-text": "#78350f",
+      "color-bg": "#fef3c7",
+      "color-muted": "#d97706"
+    },
+    "dark": {
+      "color-text": "#fef3c7",
+      "color-bg": "#78350f",
+      "color-muted": "#fbbf24"
+    }
+  },
+  "emerald": {
+    "light": {
+      "color-text": "#064e3b",
+      "color-bg": "#d1fae5",
+      "color-muted": "#10b981"
+    },
+    "dark": {
+      "color-text": "#d1fae5",
+      "color-bg": "#064e3b",
+      "color-muted": "#34d399"
+    }
+  }
+}
+```
+
+## theme/theme-data-provider.tsx
+This loads and applies the correct color variables to `:root`.
+
+```tsx
+"use client";
+
+import { useEffect } from "react";
+import themes from "./theme-colors.json";
+import { useThemeColor } from "./use-theme-color";
+
+export function ThemeDataProvider() {
+  const { themeColor } = useThemeColor();
+
+  useEffect(() => {
+    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const mode = isDark ? "dark" : "light";
+    const theme = themes[themeColor][mode];
+
+    for (const [key, value] of Object.entries(theme)) {
+      document.documentElement.style.setProperty(`--${key}`, value);
+    }
+  }, [themeColor]);
+
+  return null;
+}
+```
+
+## components/theme-toggle.tsx
+A simple theme switcher using a select dropdown:
+
+```tsx
+"use client";
+
+import { useThemeColor } from "@/theme/use-theme-color";
+import { themes } from "@/theme/theme-list"; // An array like: ["slate", "amber", "emerald"]
+
+export function ThemeToggle() {
+  const { themeColor, setThemeColor } = useThemeColor();
+
+  return (
+    <select
+      className="rounded border px-2 py-1"
+      value={themeColor}
+      onChange={(e) => setThemeColor(e.target.value)}
+    >
+      {themes.map((t) => (
+        <option key={t} value={t}>
+          {t.charAt(0).toUpperCase() + t.slice(1)}
+        </option>
+      ))}
+    </select>
+  );
+}
+```
+
+Tailwind classes like `text-[color:var(--color-text)]` and `bg-[color:var(--color-bg)] will now respond to the selected theme.
+
+## Wrap-Up
+Theme switching can be aesthetic, accessible, and fun - without overengineering. Hope this gave you some ideas to try it yourself.
+If you'd like to see how the code looks like you can view the source code on [GitHub](https://github.com/JuricLeo/leopold-juric).
