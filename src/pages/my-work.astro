@@ -1,9 +1,9 @@
 ---
 import MainLayout from "@/layouts/main-layout.astro";
+import AllProjects from "@/components/pages/my-work/all-projects.astro";
 
 const title = "My Work";
-const description =
-    "Explore selected web development projects by Leopold Jurić.";
+const description = "Explore selected web development projects by Leopold Jurić.";
 
 const openGraph = {
     title,
@@ -12,4 +12,6 @@ const openGraph = {
 };
 ---
 
-<MainLayout title={title} description={description} openGraph={openGraph} />
+<MainLayout title={title} description={description} openGraph={openGraph}>
+    <AllProjects />
+</MainLayout>

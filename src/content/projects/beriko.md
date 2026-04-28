@@ -4,6 +4,6 @@ description: "Company website for Beriko, a company that builds high-quality pre
 link: "https://beriko.com"
 type: "Freelance"
 date: "2024"
-stack: [ "Nextdotjs", "Tailwindcss", "Supabase" ]
+stack: [ "Nextjs", "Tailwindcss", "Supabase" ]
 status: "Outdated"
 ---

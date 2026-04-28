@@ -4,6 +4,6 @@ description: "Goofy app for students to check if they are 'cooked' if they start
 link: "https://am-i-cooked.vercel.app/"
 type: "Personal"
 date: "2025"
-stack: [ "Nextdotjs", "Tailwindcss" ]
+stack: [ "Nextjs", "Tailwindcss" ]
 status: ""
 ---

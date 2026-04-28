@@ -4,6 +4,6 @@ description: "Financial Focus is a web application where users can track their p
 link: "https://financial-focus.vercel.app"
 type: "Personal"
 date: "2024"
-stack: [ "Nextdotjs", "Tailwindcss", "Clerk", "Prisma" ]
+stack: [ "Nextjs", "Tailwindcss", "Clerk", "Prisma" ]
 status: ""
 ---

@@ -4,6 +4,6 @@ description: "Pets of TVZ is a simple web application where users (students of U
 link: "https://pets-of-tvz.vercel.app"
 type: "Personal"
 date: "2024"
-stack: [ "Nextdotjs", "Tailwindcss", "Clerk", "Prisma" ]
+stack: [ "Nextjs", "Tailwindcss", "Clerk", "Prisma" ]
 status: ""
 ---

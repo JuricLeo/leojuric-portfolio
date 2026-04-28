@@ -1,0 +1,55 @@
+---
+import TechCard from "./tech-card.astro";
+---
+
+<section class="flex flex-col gap-10 xs:gap-6">
+    <h1 class="text-3xl -mb-2 pl-3">tools</h1>
+    <div class="border-l-3 border-black pl-3">
+        <p class="text-muted">#frontend</p>
+        <div class="flex flex-col xs:flex-row xs:items-center gap-2">
+            <div class="-translate-x-2">
+                <TechCard tool="Astro" />
+            </div>
+            <span class="hidden xs:block text-muted/50">/</span>
+            <TechCard tool="React" />
+            <span class="hidden xs:block text-muted/50 mr-2">/</span>
+            <TechCard tool="Tailwind CSS" />
+        </div>
+    </div>
+    <div class="border-l-3 border-black pl-3">
+        <p class="text-muted">#backend</p>
+        <div class="flex flex-col xs:flex-row xs:items-center gap-2">
+            <div class="-translate-x-2">
+                <TechCard tool="Laravel" />
+            </div>
+            <span class="hidden xs:block text-muted/50">/</span>
+            <TechCard tool="PostgreSQL" />
+            <span class="hidden xs:block text-muted/50 mr-2">/</span>
+            <TechCard tool="Bun" />
+        </div>
+    </div>
+    <div class="border-l-3 border-black pl-3">
+        <p class="text-muted">#devops</p>
+        <div class="flex flex-col xs:flex-row xs:items-center gap-2">
+            <div class="-translate-x-2">
+                <TechCard tool="Docker" />
+            </div>
+            <span class="hidden xs:block text-muted/50">/</span>
+            <TechCard tool="Pest" />
+            <span class="hidden xs:block text-muted/50 mr-2">/</span>
+            <TechCard tool="Vitest" />
+        </div>
+    </div>
+    <div class="border-l-3 border-black pl-3">
+        <p class="text-muted">#design</p>
+        <div class="flex flex-col xs:flex-row xs:items-center gap-2">
+            <div class="-translate-x-2">
+                <TechCard tool="Affinity" />
+            </div>
+            <span class="hidden xs:block text-muted/50">/</span>
+            <TechCard tool="Figma" />
+            <span class="hidden xs:block text-muted/50 mr-2">/</span>
+            <TechCard tool="DaVinci Resolve" />
+        </div>
+    </div>
+</section>
