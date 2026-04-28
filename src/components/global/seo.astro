@@ -1,0 +1,59 @@
+---
+import siteData from "@/data/siteData.json";
+import jsonLdGenerator from "@/js/jsonLd";
+
+const {
+    title,
+    description,
+    url = Astro.url,
+    image,
+    frontmatter,
+    robots,
+    canonical,
+    keywords,
+    openGraph,
+} = Astro.props;
+
+const jsonLD = jsonLdGenerator({
+    type: frontmatter ? "article" : "website",
+    article: frontmatter,
+    url,
+});
+
+const canonicalUrl = canonical || url;
+const ogTitle = openGraph?.title || title;
+const ogDescription = openGraph?.description || description;
+const ogUrl = openGraph?.url || canonicalUrl;
+const ogImage = openGraph?.image || image?.src || siteData.image.src;
+---
+
+<!-- SEO -->
+<link rel="canonical" href={canonicalUrl} />
+
+<meta name="keywords" content={keywords} />
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="Leopold Jurić" />
+<meta property="og:type" content={frontmatter ? "article" : "website"} />
+<meta property="og:title" content={ogTitle} />
+<meta property="og:description" content={ogDescription} />
+<meta property="og:url" content={ogUrl} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:url" content={ogImage} />
+<meta property="og:image:secure_url" content={ogImage} />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="600" />
+<meta property="og:image:alt" content={image?.alt || siteData.image.alt} />
+
+<!-- Twitter -->
+<meta name="twitter:title" content={ogTitle} />
+<meta name="twitter:description" content={ogDescription} />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={title} />
+<meta name="twitter:site" content="@leopoldjuric" />
+<meta name="twitter:domain" content={import.meta.env.SITE} />
+
+<!-- JSON LD -->
+<Fragment set:html={jsonLD} />

@@ -1,0 +1,109 @@
+---
+import { ClientRouter } from "astro:transitions";
+import { Font } from "astro:assets";
+
+import Seo from "@/components/global/seo.astro";
+
+interface OpenGraph {
+    title?: string;
+    description?: string;
+    url?: string;
+    image?: string;
+}
+
+interface Props {
+    title: string;
+    description: string;
+    image?: string;
+    frontmatter?: any;
+    robots?: any;
+    canonical?: string;
+    keywords?: string;
+    openGraph?: OpenGraph;
+}
+
+const {
+    title,
+    description,
+    image,
+    frontmatter,
+    robots,
+    canonical,
+    keywords,
+    openGraph,
+} = Astro.props as Props;
+const pageTitle =
+    title === "Leopold Jurić - Personal Portfolio & Blog"
+        ? title
+        : `${title} | Leopold Jurić`;
+
+const defaultKeywords = "";
+const pageKeywords = keywords || defaultKeywords;
+---
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Leopold Jurić" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <Font cssVariable="--font-geist-mono" />
+    <Font cssVariable="--font-geist-pixel-square" />
+    <ClientRouter />
+
+    <Seo
+        title={title}
+        description={description}
+        url={Astro.url}
+        image={image}
+        frontmatter={frontmatter}
+        robots={robots}
+        canonical={canonical}
+        keywords={pageKeywords}
+        openGraph={openGraph}
+    />
+
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Leopold Jurić",
+            url: "https://www.leopold-juric.com",
+            description: "Personal Portfolio & Blog",
+            publisher: {
+                "@type": "Organization",
+                name: "Leopold Jurić",
+                url: "https://www.leopold-juric.com",
+            },
+        })}
+        is:inline
+    />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SiteNavigationElement",
+            name: ["Home", "My Work", "Blog"],
+            url: [
+                "https://www.leopold-juric.com",
+                "https://www.leopold-juric.com/my-work",
+                "https://www.leopold-juric.com/blog",
+            ],
+        })}
+        is:inline
+    />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Leopold Jurić" />
+    <meta name="creator" content="Leopold Jurić" />
+    <meta name="robots" content="index, follow" />
+    <meta name="generator" content={Astro.generator} />
+    <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+    <script src="/pagefind/pagefind-ui.js" is:inline></script>
+</head>

@@ -1,0 +1,58 @@
+---
+import "../styles/global.css";
+
+import MainHead from "@/components/global/main-head.astro";
+import { Header } from "@/components/global/header";
+import Footer from "@/components/global/footer.astro";
+
+interface OpenGraph {
+    title?: string;
+    description?: string;
+    url?: string;
+    image?: string;
+}
+
+interface Props {
+    title: string;
+    description: string;
+    image?: any;
+    frontmatter?: any;
+    robots?: any;
+    canonical?: string;
+    keywords?: string;
+    openGraph?: OpenGraph;
+}
+
+const {
+    title,
+    description,
+    image,
+    frontmatter,
+    robots,
+    canonical,
+    keywords,
+    openGraph,
+} = Astro.props as Props;
+const pathname = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+    <MainHead
+        title={title}
+        description={description}
+        image={image}
+        frontmatter={frontmatter}
+        robots={robots}
+        canonical={canonical}
+        keywords={keywords}
+        openGraph={openGraph}
+    />
+    <body class="mx-auto max-w-3xl border-x border-dotted">
+        <Header client:idle pathname={pathname} />
+        <main>
+            <slot />
+        </main>
+        <Footer />
+    </body>
+</html>
