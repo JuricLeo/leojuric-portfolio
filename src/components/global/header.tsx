@@ -47,7 +47,7 @@ export const Header = ({ pathname }: HeaderProps) => {
                 {routes.map((route) => (
                     <a
                         className={cn(
-                            "flex h-full items-center border-x px-6 font-bold text-muted hover:-translate-y-0.5 hover:text-primary",
+                            "flex h-full items-center border-x border-dotted px-6 font-bold text-muted hover:-translate-y-0.5 hover:text-primary",
                             pathname === route.href && "border-primary opacity-100 text-primary"
                         )}
                         href={route.href}

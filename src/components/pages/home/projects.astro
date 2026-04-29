@@ -12,7 +12,7 @@ const selectedProjects = orderedNames.map((name) => projects.find((p) => p.data.
     <div class="flex flex-col gap-4">
         {
             selectedProjects.map((project) => (
-                <div class="border-b last:border-b-0 pb-12 pt-6 last:pb-0">
+                <div class="border-b border-dotted last:border-b-0 pb-12 pt-6 last:pb-0">
                     <h2 class="text-lg">
                         <a href={project!.data.link} class="underline" target="_blank" aria-label={`Go to ${project!.data.name}`}>
                             {project!.data.name}
