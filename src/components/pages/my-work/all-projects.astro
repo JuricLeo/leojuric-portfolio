@@ -34,12 +34,9 @@ const projects = await getCollection("projects");
                         <span class="text-black mr-4 font-semibold">3</span>
                         <div class="flex gap-2">
                             <p class="whitespace-nowrap text-black font-semibold">stack:</p>
-                            <div class="flex gap-2">
+                            <div class="flex flex-wrap gap-x-2">
                                 {project!.data.stack.map((tool, index) => (
-                                    <p class="flex">
-                                        <span>{tool}</span>
-                                        <span>{index !== project!.data.stack.length - 1 && ", "}</span>
-                                    </p>
+                                    <span>{tool}{index !== project!.data.stack.length - 1 && ", "}</span>
                                 ))}
                             </div>
                         </div>
