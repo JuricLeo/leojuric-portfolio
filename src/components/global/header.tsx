@@ -39,7 +39,7 @@ export const Header = ({ pathname }: HeaderProps) => {
     };
 
     return (
-        <header className="sticky top-0 z-30 mx-auto mb-20 flex h-12 items-center justify-between gap-6 border-y border-dotted bg-background">
+        <header className="sticky w-full top-0 z-30 mx-auto mb-20 flex h-12 items-center justify-between gap-6 border-y border-dotted bg-background">
             <a href="/" aria-label="Go home" className="ml-3">
                 // Leopold Jurić
             </a>

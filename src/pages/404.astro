@@ -1,0 +1,25 @@
+---
+import MainLayout from "@/layouts/main-layout.astro";
+
+const title = "My Work";
+const description = "Explore selected web development projects by Leopold Jurić.";
+
+const openGraph = {
+    title,
+    description,
+    url: "https://www.leopold-juric.com",
+};
+---
+
+<MainLayout title={title} description={description} openGraph={openGraph}>
+    <div class="flex flex-1 items-center justify-center flex-col gap-1">
+        <h1 class="text-5xl">
+            <span>404</span>
+        </h1>
+        <div class="flex items-center">
+            <h2 class="text-3xl">NOT FOUND</h2>
+            <img alt="logo" src="/assets/images/logo.webp" class="size-12 mb-3" />
+        </div>
+        <a href="/" aria-label="Home page" class="underline text-xl -mt-1 hover:opacity-70">return</a>
+    </div>
+</MainLayout>

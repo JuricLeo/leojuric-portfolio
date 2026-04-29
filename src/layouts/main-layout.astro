@@ -39,9 +39,9 @@ const pathname = Astro.url.pathname;
         keywords={keywords}
         openGraph={openGraph}
     />
-    <body class="mx-auto max-w-3xl border-x border-dotted">
+    <body class="mx-auto max-w-3xl border-x border-dotted min-h-screen flex flex-col">
         <Header client:idle pathname={pathname} />
-        <main class="space-y-12">
+        <main class="flex flex-1 flex-col space-y-12">
             <slot />
         </main>
         <Footer />
