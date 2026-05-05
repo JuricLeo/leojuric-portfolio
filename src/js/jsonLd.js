@@ -1,6 +1,6 @@
 export default function jsonLdGenerator({ type, article, url }) {
     if (type === "article" && article) {
-        const imageUrl = `https://www.leopold-juric.com/assets/images/blog/${article.id}/header.webp`;
+        const imageUrl = `https://leopold-juric.com/assets/images/blog/${article.id}/header.webp`;
         return `
             <script type="application/ld+json">
                 {
@@ -16,15 +16,15 @@ export default function jsonLdGenerator({ type, article, url }) {
                     "author": {
                         "@type": "Person",
                         "name": "${article.author}",
-                        "url": "https://www.leopold-juric.com"
+                        "url": "https://leopold-juric.com"
                     },
                     "publisher": {
                         "@type": "Person",
                         "name": "Leopold Jurić",
-                        "url": "https://www.leopold-juric.com",
+                        "url": "https://leopold-juric.com",
                         "image": {
                             "@type": "ImageObject",
-                            "url": "https://www.leopold-juric.com/metadata/og.png"
+                            "url": "https://leopold-juric.com/metadata/og.png"
                         }
                     },
                     "articleSection": "${article.category || ""}",

@@ -16,7 +16,7 @@ interface Props {
     description: string;
     image?: string;
     frontmatter?: any;
-    robots?: any;
+    robots?: string;
     canonical?: string;
     keywords?: string;
     openGraph?: OpenGraph;
@@ -27,15 +27,16 @@ const pageTitle = title === "Leopold Jurić - Personal Portfolio & Blog" ? title
 
 const defaultKeywords = "";
 const pageKeywords = keywords || defaultKeywords;
+const robotsContent = robots || "index, follow";
 ---
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/metadata/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/metadata/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/metadata/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Leopold Jurić" />
     <link rel="manifest" href="/metadata/site.webmanifest" />
     <link rel="sitemap" href="/sitemap-index.xml" />
@@ -61,12 +62,12 @@ const pageKeywords = keywords || defaultKeywords;
             "@context": "https://schema.org",
             "@type": "WebSite",
             name: "Leopold Jurić",
-            url: "https://www.leopold-juric.com",
+            url: "https://leopold-juric.com",
             description: "Personal Portfolio & Blog",
             publisher: {
                 "@type": "Person",
                 name: "Leopold Jurić",
-                url: "https://www.leopold-juric.com",
+                url: "https://leopold-juric.com",
             },
         })}
         is:inline
@@ -77,7 +78,7 @@ const pageKeywords = keywords || defaultKeywords;
             "@context": "https://schema.org",
             "@type": "SiteNavigationElement",
             name: ["Home", "My Work", "Blog"],
-            url: ["https://www.leopold-juric.com", "https://www.leopold-juric.com/my-work", "https://www.leopold-juric.com/blog"],
+            url: ["https://leopold-juric.com", "https://leopold-juric.com/my-work", "https://leopold-juric.com/blog"],
         })}
         is:inline
     />
@@ -86,6 +87,6 @@ const pageKeywords = keywords || defaultKeywords;
     <meta name="description" content={description} />
     <meta name="author" content="Leopold Jurić" />
     <meta name="creator" content="Leopold Jurić" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={robotsContent} />
     <meta name="generator" content={Astro.generator} />
 </head>

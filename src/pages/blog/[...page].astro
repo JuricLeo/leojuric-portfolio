@@ -12,7 +12,7 @@ const { page } = Astro.props as Props;
 
 const title = page.currentPage > 1 ? `Blog - Page ${page.currentPage}` : "Blog";
 const description = "Thoughts on web development, software engineering, tutorials and more";
-const canonicalUrl = `https://www.leopold-juric.com${page.url.current}`;
+const canonicalUrl = `https://leopold-juric.com${page.url.current}`;
 
 const openGraph = {
     title: `Blog | Leopold Jurić`,
@@ -30,11 +30,16 @@ export const getStaticPaths = (async ({ paginate }) => {
 <MainLayout title={title} description={description} openGraph={openGraph} canonical={canonicalUrl}>
     <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet" />
     <script src="/pagefind/pagefind-component-ui.js" type="module" is:inline></script>
+    <script>
+        import { initPagefindSearchboxLinkNormalizer } from "@/js/pagefindSearchboxLinks.js";
+
+        initPagefindSearchboxLinkNormalizer();
+    </script>
     <div class="px-3">
         <h1 class="text-3xl">blog</h1>
-        <p class="text-muted lowercase">> {description}</p>
-        <div class="mb-24 mt-16 flex justify-center">
-            <pagefind-searchbox placeholder="Search articles..."></pagefind-searchbox>
+        <p class="text-muted lowercase">{description}</p>
+        <div class="mt-16 mb-24 flex justify-center">
+            <pagefind-searchbox placeholder="Search articles..." show-sub-results></pagefind-searchbox>
         </div>
         <div class="flex flex-col gap-12">
             {
@@ -43,18 +48,18 @@ export const getStaticPaths = (async ({ paginate }) => {
                         article.data.description.length > 240 ? article.data.description.substring(0, 240) + "..." : article.data.description;
 
                     return (
-                        <a href={`/blog/${article.id}`} class="flex flex-col mx-auto items-center w-full group">
-                            <div class="flex mb-2 gap-2 items-center mr-auto" transition:name={`${article.id}-data`}>
-                                <p class="text-muted mt-1">{formatDate(article.data.date)}</p>
+                        <a href={`/blog/${article.id}`} class="group mx-auto flex w-full flex-col items-center">
+                            <div class="mr-auto mb-2 flex items-center gap-2" transition:name={`${article.id}-data`}>
+                                <p class="mt-1 text-muted">{formatDate(article.data.date)}</p>
                                 <p class="bg-muted/10 px-2 py-0.5 text-sm">{article.data.category}</p>
                             </div>
                             <h2
-                                class="text-2xl font-bold group-hover:underline group-hover:opacity-70 mr-auto"
+                                class="mr-auto text-2xl font-bold group-hover:underline group-hover:opacity-70"
                                 transition:name={`${article.id}-title`}
                             >
                                 {article.data.title}
                             </h2>
-                            <p class="text-muted text-base mt-1" transition:name={`${article.id}-description`}>
+                            <p class="mt-1 text-base text-muted" transition:name={`${article.id}-description`}>
                                 {truncatedDescription}
                             </p>
                         </a>
@@ -62,53 +67,10 @@ export const getStaticPaths = (async ({ paginate }) => {
                 })
             }
         </div>
-        <div class="w-full flex justify-center mt-12">
+        <div class="mt-12 flex w-full justify-center">
             <div class="flex">
                 <Pagination prevUrl={page.url.prev} nextUrl={page.url.next} currentPage={page.currentPage} lastPage={page.lastPage} />
             </div>
         </div>
     </div>
-    <script>
-        let searchInstance: any = null;
-
-        document.addEventListener("astro:page-load", () => {
-            const searchContainer = document.getElementById("search");
-
-            if (!searchContainer) return;
-
-            // Check for WebAssembly support (required by Pagefind)
-            if (typeof WebAssembly === "undefined") {
-                searchContainer.style.display = "none";
-                return;
-            }
-
-            if (searchInstance) {
-                searchInstance.destroy();
-                searchInstance = null;
-            }
-
-            searchContainer.innerHTML = "";
-
-            try {
-                // @ts-ignore
-                searchInstance = new PagefindUI({
-                    element: "#search",
-                    showSubResults: true,
-                    showImages: false,
-                    showEmptyFilters: false,
-                });
-
-                searchInstance.triggerFilters({ section: ["articles"] });
-            } catch {
-                searchContainer.style.display = "none";
-            }
-        });
-
-        document.addEventListener("astro:before-swap", () => {
-            if (searchInstance) {
-                searchInstance.destroy();
-                searchInstance = null;
-            }
-        });
-    </script>
 </MainLayout>
