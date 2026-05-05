@@ -1,8 +1,8 @@
 ---
-import "../styles/global.css";
+import "@/styles/global.css";
 
 import MainHead from "@/components/global/main-head.astro";
-import { Header } from "@/components/global/header";
+import Header from "@/components/global/header.astro";
 import Footer from "@/components/global/footer.astro";
 
 interface OpenGraph {
@@ -24,7 +24,6 @@ interface Props {
 }
 
 const { title, description, image, frontmatter, robots, canonical, keywords, openGraph } = Astro.props as Props;
-const pathname = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -40,7 +39,7 @@ const pathname = Astro.url.pathname;
         openGraph={openGraph}
     />
     <body class="mx-auto max-w-3xl border-x border-dotted min-h-screen flex flex-col">
-        <Header client:idle pathname={pathname} />
+        <Header />
         <main class="flex flex-1 flex-col space-y-12">
             <slot />
         </main>

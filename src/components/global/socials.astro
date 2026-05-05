@@ -1,0 +1,15 @@
+---
+import socialMedia from "@/data/socials.json";
+
+interface Props {
+    loading?: "lazy" | "eager";
+}
+
+const { loading = "lazy" } = Astro.props;
+---
+
+{socialMedia.map((social) => (
+    <a rel="noopener noreferrer" href={social.url} target="_blank" aria-label={social.name} class="hover:-translate-y-0.5">
+        <img class="size-6" src={social.src} alt={social.name} loading={loading} />
+    </a>
+))}

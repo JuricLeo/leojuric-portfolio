@@ -1,0 +1,16 @@
+---
+interface Props {
+    loading?: "lazy" | "eager";
+}
+
+const { loading = "lazy" } = Astro.props;
+---
+
+<img
+    src="/assets/images/logo.webp"
+    alt="logo"
+    width={50}
+    height={50}
+    class="h-[50px] w-[50px]"
+    loading={loading ? "lazy" : "eager"}
+/>

@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import AButton from "@/components/ui/a-button.astro";
+import Button from "@/components/ui/button.astro";
 import { formatDate } from "@/lib/utils.ts";
 
 const articles = (await getCollection("articles")).sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()).slice(0, 3);
@@ -33,6 +33,6 @@ export function truncateDescription(description?: string, length = 155) {
         }
     </div>
     <a href="/blog" aria-label="Blog" class="mx-auto flex mt-12">
-        <AButton class="flex mx-auto">all articles</AButton>
+        <Button class="flex mx-auto">all articles</Button>
     </a>
 </section>
