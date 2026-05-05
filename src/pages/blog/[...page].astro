@@ -29,74 +29,11 @@ export const getStaticPaths = (async ({ paginate }) => {
 
 <MainLayout title={title} description={description} openGraph={openGraph} canonical={canonicalUrl}>
     <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet" />
-    <script type="module" is:inline>
-        import "/pagefind/pagefind-component-ui.js";
+    <script src="/pagefind/pagefind-component-ui.js" type="module" is:inline></script>
+    <script>
+        import { initPagefindSearchboxLinkNormalizer } from "@/js/pagefindSearchboxLinks.js";
 
-        const normalizeUrl = (url) => {
-            if (!url) return url;
-
-            try {
-                const parsed = new URL(url, window.location.origin);
-
-                if (parsed.origin !== window.location.origin) {
-                    return url;
-                }
-
-                const path = parsed.pathname.length > 1 && parsed.pathname.endsWith("/") ? parsed.pathname.slice(0, -1) : parsed.pathname;
-
-                return `${path}${parsed.search}${parsed.hash}`;
-            } catch {
-                return url;
-            }
-        };
-
-        let searchboxObserver = null;
-
-        const normalizeSearchboxLinks = () => {
-            document.querySelectorAll("pagefind-searchbox a[href]").forEach((link) => {
-                const href = link.getAttribute("href");
-                const normalizedHref = normalizeUrl(href);
-
-                if (href !== normalizedHref) {
-                    link.setAttribute("href", normalizedHref);
-                }
-            });
-        };
-
-        const connectSearchboxLinkNormalizer = () => {
-            searchboxObserver?.disconnect();
-
-            const searchbox = document.querySelector("pagefind-searchbox");
-
-            if (!searchbox) return;
-
-            normalizeSearchboxLinks();
-
-            searchboxObserver = new MutationObserver(normalizeSearchboxLinks);
-            searchboxObserver.observe(searchbox, { childList: true, subtree: true, attributes: true, attributeFilter: ["href"] });
-
-            searchbox.addEventListener("click", normalizeSearchboxLinks, { capture: true });
-            searchbox.addEventListener(
-                "keydown",
-                (event) => {
-                    if (event.key === "Enter") {
-                        normalizeSearchboxLinks();
-                    }
-                },
-                { capture: true }
-            );
-        };
-
-        document.addEventListener("astro:page-load", connectSearchboxLinkNormalizer);
-
-        if (document.readyState !== "loading") {
-            connectSearchboxLinkNormalizer();
-        }
-
-        document.addEventListener("astro:before-swap", () => {
-            searchboxObserver?.disconnect();
-            searchboxObserver = null;
-        });
+        initPagefindSearchboxLinkNormalizer();
     </script>
     <div class="px-3">
         <h1 class="text-3xl">blog</h1>
