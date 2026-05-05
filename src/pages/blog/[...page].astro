@@ -12,7 +12,7 @@ const { page } = Astro.props as Props;
 
 const title = page.currentPage > 1 ? `Blog - Page ${page.currentPage}` : "Blog";
 const description = "Thoughts on web development, software engineering, tutorials and more";
-const canonicalUrl = `https://www.leopold-juric.com${page.url.current}`;
+const canonicalUrl = `https://leopold-juric.com${page.url.current}`;
 
 const openGraph = {
     title: `Blog | Leopold Jurić`,
