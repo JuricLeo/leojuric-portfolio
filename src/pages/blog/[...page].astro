@@ -28,6 +28,8 @@ export const getStaticPaths = (async ({ paginate }) => {
 ---
 
 <MainLayout title={title} description={description} openGraph={openGraph} canonical={canonicalUrl}>
+    <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet" />
+    <script src="/pagefind/pagefind-component-ui.js" type="module" is:inline></script>
     <div class="px-3">
         <h1 class="text-3xl">blog</h1>
         <p class="text-muted lowercase">> {description}</p>

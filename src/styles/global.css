@@ -91,14 +91,15 @@
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
 
-    --pf-border: var(--border);
-    --pf-border-focus: transparent;
-    --pf-outline-focus: var(--border);
-    --pf-outline-width: 1px;
-    --pf-outline-offset: 1px;
-    --pf-border-radius: 0px;
-    --pf-font: var(--font-geist-mono);
-    --pf-searchbox-max-width: 880px;
+    /* Pagefind */
+    --pf-border: var(--border) !important;
+    --pf-border-focus: transparent !important;
+    --pf-outline-focus: var(--border) !important;
+    --pf-outline-width: 1px !important;
+    --pf-outline-offset: 1px !important;
+    --pf-border-radius: 0px !important;
+    --pf-font: var(--font-geist-mono) !important;
+    --pf-searchbox-max-width: 880px !important;
 }
 
 @layer base {
@@ -127,6 +128,7 @@ ul li::before {
     content: "> ";
 }
 
+/* Pagefind */
 .pf-searchbox {
-    @apply sm:min-w-120!;
+    @apply sm:min-w-120! border-0;
 }
