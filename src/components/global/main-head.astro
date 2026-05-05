@@ -16,7 +16,7 @@ interface Props {
     description: string;
     image?: string;
     frontmatter?: any;
-    robots?: any;
+    robots?: string;
     canonical?: string;
     keywords?: string;
     openGraph?: OpenGraph;
@@ -27,6 +27,7 @@ const pageTitle = title === "Leopold Jurić - Personal Portfolio & Blog" ? title
 
 const defaultKeywords = "";
 const pageKeywords = keywords || defaultKeywords;
+const robotsContent = robots || "index, follow";
 ---
 
 <head>
@@ -86,6 +87,6 @@ const pageKeywords = keywords || defaultKeywords;
     <meta name="description" content={description} />
     <meta name="author" content="Leopold Jurić" />
     <meta name="creator" content="Leopold Jurić" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={robotsContent} />
     <meta name="generator" content={Astro.generator} />
 </head>
