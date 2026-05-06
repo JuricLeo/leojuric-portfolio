@@ -14,11 +14,11 @@ const routes = [
     },
     {
         name: "My Work",
-        href: "/my-work",
+        href: "/my-work/",
     },
     {
         name: "Blog",
-        href: "/blog",
+        href: "/blog/",
     },
 ];
 
@@ -32,45 +32,47 @@ const normalizePath = (path: string) => {
 const pathname = normalizePath(Astro.url.pathname);
 ---
 
-<header class="sticky w-full top-0 z-30 mx-auto mb-12 flex h-12 items-center justify-between gap-6 border-y border-dotted bg-background">
-    <a href="/" aria-label="Go home" class="ml-3">
-        // Leopold Jurić
-    </a>
+<header class="sticky top-0 z-30 mx-auto mb-12 flex h-12 w-full items-center justify-between gap-6 border-y border-dotted bg-background">
+    <a href="/" aria-label="Go home" class="ml-3"> // Leopold Jurić </a>
     <nav aria-label="Main navigation" class="hidden h-full items-stretch sm:flex">
-        {routes.map((route) => (
-            <a
-                class={cn(
-                    "flex h-full items-center border-x border-dotted px-6 font-bold text-muted hover:-translate-y-0.5 hover:text-primary",
-                    pathname === route.href && "border-primary opacity-100 text-primary"
-                )}
-                href={route.href}
-            >
-                {route.name}
-            </a>
-        ))}
+        {
+            routes.map((route) => (
+                <a
+                    class={cn(
+                        "flex h-full items-center border-x border-dotted px-6 font-bold text-muted hover:-translate-y-0.5 hover:text-primary",
+                        pathname === route.href && "border-primary text-primary opacity-100"
+                    )}
+                    href={route.href}
+                >
+                    {route.name}
+                </a>
+            ))
+        }
     </nav>
 
-    <details class="sm:hidden group">
-        <summary class="list-none cursor-pointer mr-9 mb-6">
+    <details class="group sm:hidden">
+        <summary class="mr-9 mb-6 cursor-pointer list-none">
             <span class="sr-only">Open navigation menu</span>
-            <ListIcon class="size-6 absolute transition-opacity duration-200 opacity-100 group-open:opacity-0" />
-            <XIcon class="size-6 absolute transition-opacity duration-200 opacity-0 group-open:opacity-100" />
+            <ListIcon class="absolute size-6 opacity-100 transition-opacity duration-200 group-open:opacity-0" />
+            <XIcon class="absolute size-6 opacity-0 transition-opacity duration-200 group-open:opacity-100" />
         </summary>
-        <div class="fixed inset-0 top-12 h-screen bg-background flex flex-col">
+        <div class="fixed inset-0 top-12 flex h-screen flex-col bg-background">
             <nav class="flex flex-col gap-4 py-10 pl-10">
-                {routes.map((route) => (
-                    <a
-                        class={cn(
-                            "text-3xl font-bold text-muted-foreground hover:text-primary hover:underline",
-                            pathname === route.href && "text-primary"
-                        )}
-                        href={route.href}
-                    >
-                        {route.name}
-                    </a>
-                ))}
+                {
+                    routes.map((route) => (
+                        <a
+                            class={cn(
+                                "text-3xl font-bold text-muted-foreground hover:text-primary hover:underline",
+                                pathname === route.href && "text-primary"
+                            )}
+                            href={route.href}
+                        >
+                            {route.name}
+                        </a>
+                    ))
+                }
             </nav>
-            <footer class="mb-20 mt-auto flex w-full flex-col items-center justify-center gap-4">
+            <footer class="mt-auto mb-20 flex w-full flex-col items-center justify-center gap-4">
                 <Logo />
                 <p class="block text-center text-sm text-muted-foreground">Leopold Jurić</p>
                 <div class="flex gap-2">

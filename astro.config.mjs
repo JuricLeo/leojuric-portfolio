@@ -19,7 +19,7 @@ export default defineConfig({
         }),
         mdx(),
     ],
-    trailingSlash: "never",
+    trailingSlash: "always",
     fonts: [
         {
             provider: fontProviders.local(),

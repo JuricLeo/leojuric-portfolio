@@ -30,11 +30,6 @@ export const getStaticPaths = (async ({ paginate }) => {
 <MainLayout title={title} description={description} openGraph={openGraph} canonical={canonicalUrl}>
     <link href="/pagefind/pagefind-component-ui.css" rel="stylesheet" />
     <script src="/pagefind/pagefind-component-ui.js" type="module" is:inline></script>
-    <script>
-        import { initPagefindSearchboxLinkNormalizer } from "@/js/pagefindSearchboxLinks.js";
-
-        initPagefindSearchboxLinkNormalizer();
-    </script>
     <div class="px-3">
         <h1 class="text-3xl">blog</h1>
         <p class="text-muted lowercase">{description}</p>
@@ -48,7 +43,7 @@ export const getStaticPaths = (async ({ paginate }) => {
                         article.data.description.length > 240 ? article.data.description.substring(0, 240) + "..." : article.data.description;
 
                     return (
-                        <a href={`/blog/${article.id}`} class="group mx-auto flex w-full flex-col items-center">
+                        <a href={`/blog/${article.id}/`} class="group mx-auto flex w-full flex-col items-center">
                             <div class="mr-auto mb-2 flex items-center gap-2" transition:name={`${article.id}-data`}>
                                 <p class="mt-1 text-muted">{formatDate(article.data.date)}</p>
                                 <p class="bg-muted/10 px-2 py-0.5 text-sm">{article.data.category}</p>

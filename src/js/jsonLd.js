@@ -16,12 +16,12 @@ export default function jsonLdGenerator({ type, article, url }) {
                     "author": {
                         "@type": "Person",
                         "name": "${article.author}",
-                        "url": "https://leopold-juric.com"
+                        "url": "https://leopold-juric.com/"
                     },
                     "publisher": {
                         "@type": "Person",
                         "name": "Leopold Jurić",
-                        "url": "https://leopold-juric.com",
+                        "url": "https://leopold-juric.com/",
                         "image": {
                             "@type": "ImageObject",
                             "url": "https://leopold-juric.com/metadata/og.png"

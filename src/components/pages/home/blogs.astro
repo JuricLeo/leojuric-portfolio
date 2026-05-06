@@ -13,26 +13,26 @@ export function truncateDescription(description?: string, length = 155) {
 ---
 
 <section class="px-3">
-    <h1 class="text-3xl mb-16">latest blog posts</h1>
+    <h1 class="mb-16 text-3xl">latest blog posts</h1>
     <div class="flex flex-col gap-12">
         {
             articles.map((article) => (
-                <a href={`/blog/${article.id}`} class="flex flex-col mx-auto items-center w-full group">
-                    <div class="flex mb-2 gap-2 items-center mr-auto" transition:name={`${article.id}-data`}>
-                        <p class="text-muted mt-1">{formatDate(article.data.date)}</p>
+                <a href={`/blog/${article.id}/`} class="group mx-auto flex w-full flex-col items-center">
+                    <div class="mr-auto mb-2 flex items-center gap-2" transition:name={`${article.id}-data`}>
+                        <p class="mt-1 text-muted">{formatDate(article.data.date)}</p>
                         <p class="bg-muted/10 px-2 py-0.5 text-sm">{article.data.category}</p>
                     </div>
-                    <h2 class="text-2xl font-bold group-hover:underline group-hover:opacity-70 mr-auto" transition:name={`${article.id}-title`}>
+                    <h2 class="mr-auto text-2xl font-bold group-hover:underline group-hover:opacity-70" transition:name={`${article.id}-title`}>
                         {article.data.title}
                     </h2>
-                    <p class="text-muted text-base mt-1" transition:name={`${article.id}-description`}>
+                    <p class="mt-1 text-base text-muted" transition:name={`${article.id}-description`}>
                         {truncateDescription(article.data.description)}
                     </p>
                 </a>
             ))
         }
     </div>
-    <a href="/blog" aria-label="Blog" class="mx-auto flex mt-12">
-        <Button class="flex mx-auto">all articles</Button>
+    <a href="/blog/" aria-label="Blog" class="mx-auto mt-12 flex">
+        <Button class="mx-auto flex">all articles</Button>
     </a>
 </section>
