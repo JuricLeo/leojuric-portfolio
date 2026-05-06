@@ -6,53 +6,51 @@ const projects = await getCollection("projects");
 
 <section class="flex flex-col gap-4 px-3">
     <h1 class="text-3xl">projects ({projects.length})</h1>
-    <p class="text-muted -mt-4 mb-4">> worked and collaborated on</p>
+    <p class="-mt-4 mb-4 text-muted">&gt; worked and collaborated on</p>
     {
         projects.map((project) => (
-            <div class="border-b border-dotted last:border-b-0 pb-12 first:pt-0 pt-6 last:pb-0">
-                <h2 class="hover:opacity-80 hover:-translate-y-0.5 underline text-lg w-fit">
+            <div class="border-b border-dotted pt-6 pb-12 first:pt-0 last:border-b-0 last:pb-0">
+                <h2 class="w-fit text-lg underline hover:-translate-y-0.5 hover:opacity-80">
                     <a href={project!.data.link} target="_blank" aria-label={`Go to ${project!.data.name}`}>
                         {project!.data.name}
                     </a>
                 </h2>
-                <div class="ml-3 lowercase text-muted">
+                <div class="ml-3 text-muted lowercase">
                     <div class="flex gap-2">
-                        <span class="text-black mr-4 font-semibold">1</span>
+                        <span class="mr-4 font-semibold text-black">1</span>
                         <p>
-                            <span class="whitespace-nowrap text-black font-semibold">type:</span>
+                            <span class="font-semibold whitespace-nowrap text-black">type:</span>
                             <span>{project!.data.type}</span>
                         </p>
                     </div>
                     <div class="flex gap-2">
-                        <span class="text-black mr-4 font-semibold">2</span>
+                        <span class="mr-4 font-semibold text-black">2</span>
                         <p>
-                            <span class="whitespace-nowrap text-black font-semibold">year:</span>
+                            <span class="font-semibold whitespace-nowrap text-black">year:</span>
                             <span>{project!.data.date}</span>
                         </p>
                     </div>
                     <div class="flex gap-2">
-                        <span class="text-black mr-4 font-semibold">3</span>
-                        <div class="flex gap-2">
-                            <p class="whitespace-nowrap text-black font-semibold">stack:</p>
-                            <div class="flex flex-wrap gap-x-2">
-                                {project!.data.stack.map((tool, index) => (
-                                    <span>{tool}{index !== project!.data.stack.length - 1 && ", "}</span>
-                                ))}
-                            </div>
-                        </div>
+                        <span class="mr-4 font-semibold text-black">3</span>
+                        <p class="flex flex-wrap items-baseline gap-x-1">
+                            <span class="mr-2 font-semibold whitespace-nowrap text-black">stack:</span>
+                            {project!.data.stack.map((tool, index) => (
+                                <span>{`${tool}${index !== project!.data.stack.length - 1 ? ", " : ""}`}</span>
+                            ))}
+                        </p>
                     </div>
                     <div class="flex gap-2">
-                        <span class="text-black mr-4 font-semibold">4</span>
+                        <span class="mr-4 font-semibold text-black">4</span>
                         <p>
-                            <span class="whitespace-nowrap text-black font-semibold">description:</span>
+                            <span class="font-semibold whitespace-nowrap text-black">description:</span>
                             <span>{project!.data.description}</span>
                         </p>
                     </div>
                     {project?.data.status !== "" && (
                         <div class="flex gap-2">
-                            <span class="text-black mr-4 font-semibold">5</span>
+                            <span class="mr-4 font-semibold text-black">5</span>
                             <p>
-                                <span class="whitespace-nowrap text-black font-semibold">status:</span>
+                                <span class="font-semibold whitespace-nowrap text-black">status:</span>
                                 <span>{project!.data.status}</span>
                             </p>
                         </div>

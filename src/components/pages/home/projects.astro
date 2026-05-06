@@ -20,20 +20,20 @@ const selectedProjects = orderedNames.map((name) => projects.find((p) => p.data.
                     </h2>
                     <div class="ml-3 lowercase text-muted">
                         <p class="flex items-start gap-2">
-                            <span>></span>
+                            <span>&gt;</span>
                             <span>{project!.data.type}</span>
                         </p>
                         <p class="flex items-start gap-2">
-                            <span>></span>
+                            <span>&gt;</span>
                             <span>{project!.data.date}</span>
                         </p>
                         <p class="flex items-start gap-2">
-                            <span>></span>
+                            <span>&gt;</span>
                             <span>{project!.data.description}</span>
                         </p>
                         {project?.data.status !== "" && (
                             <p class="flex items-start gap-2">
-                                <span>></span>
+                                <span>&gt;</span>
                                 <span>status: {project!.data.status}</span>
                             </p>
                         )}
